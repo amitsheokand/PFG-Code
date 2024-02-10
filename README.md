@@ -1,1 +1,1 @@
-Edit read me file.
+Learn Game development with Unity and C#.
