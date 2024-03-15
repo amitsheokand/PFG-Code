@@ -1,22 +1,34 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using NCU;
+using Random = UnityEngine.Random;
 
+
+[RequireComponent(typeof(UIManager))]
 public class GameManager : MonoBehaviour
 {
     public GameObject playerPrefab;
     public Transform playerSpawnPosition;
     public GameObject pipePrefab;
+
+    public UIManager uiManager;
     
     private Player _player;
     public GameState gameState;
-    
+
+
 
     // private List<GameObject> pipes = new List<GameObject>();
-    
-    
-    void Start()
+
+    private void Awake()
+    {
+        uiManager = gameObject.GetComponent<UIManager>();
+    }
+
+
+    public void OnGameBegins()
     { 
         gameState = GameState.Playing; 
         SetUp();
@@ -54,6 +66,19 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         gameState = GameState.GameOver;
+        uiManager.ShowGameOver();
         Debug.Log("Game Over!");
+    }
+
+    public void Cleanup()
+    {
+        GameObject.Destroy(_player.gameObject);
+
+        var pipes = GameObject.FindObjectsByType<Pipe>(FindObjectsSortMode.None);
+
+        foreach (var pipe in pipes)
+        {
+            GameObject.Destroy(pipe.gameObject);
+        }
     }
 }
