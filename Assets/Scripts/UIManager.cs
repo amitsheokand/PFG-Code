@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour
     public RectTransform MainMenuUI;
     public RectTransform InGameUI;
     public RectTransform GameOverUI;
+    
 
     public RectTransform leaderboardUi;
     public TMP_Text highScoreText;
@@ -40,6 +41,17 @@ public class UIManager : MonoBehaviour
     {
         Debug.Log("Leaderboard Pressed");
         leaderboardUi.gameObject.SetActive(true);
+        
+        if (PlayerPrefs.HasKey(ScoreManager.ScoreKey))
+        {
+            // get saved score
+            highScoreText.text = PlayerPrefs.GetInt(ScoreManager.ScoreKey).ToString();
+        }
+        else
+        {
+            highScoreText.text = "00";
+        }
+        
     }
 
     #endregion MainMenu

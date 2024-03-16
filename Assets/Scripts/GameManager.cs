@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using NCU;
 using Random = UnityEngine.Random;
@@ -14,6 +11,9 @@ public class GameManager : MonoBehaviour
     public GameObject pipePrefab;
 
     public UIManager uiManager;
+    public ScoreManager scoreManager;
+
+    public AudioSource audioSource;
     
     private Player _player;
     public GameState gameState;
@@ -67,7 +67,10 @@ public class GameManager : MonoBehaviour
     {
         gameState = GameState.GameOver;
         uiManager.ShowGameOver();
+        scoreManager.SaveScore();
         Debug.Log("Game Over!");
+        
+        audioSource.Play();
     }
 
     public void Cleanup()
